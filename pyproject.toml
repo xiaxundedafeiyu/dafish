@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dafish"
+version = "0.1.0"
+description = "大肥鱼自主 · 让 AI 自己把视频做完并投出去"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "xiaxundedafeiyu" }]
+dependencies = [
+  "curl_cffi>=0.7",
+  "Pillow>=10",
+]
+
+[project.optional-dependencies]
+tts = ["requests>=2.31"]
+
+[project.scripts]
+dafish = "dafish.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
