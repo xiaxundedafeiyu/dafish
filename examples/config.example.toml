@@ -1,0 +1,11 @@
+﻿# 复制到 ~/.dafish/config.toml，按需修改
+default_tid = 230
+width = 1920
+height = 1080
+fps = 30
+tts_provider = "volc"
+tts_voice = "zh_female_tianmeixiaoyuan_uranus_bigtts"
+mascot = ""                      # 角色图放本机，别提交
+ffmpeg = "ffmpeg"                # 找不到就写绝对路径
+min_publish_gap_min = 30         # 两次上传最小间隔（分钟）
+daily_publish_cap = 1            # 每天最多发几条

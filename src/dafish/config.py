@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """配置与凭据。
 
 两个文件都放在 ~/.dafish/ 下（Windows 是 C:\\Users\\<你>\\.dafish\\）：
@@ -42,6 +42,8 @@ class Config:
     tts_voice: str = "zh_female_tianmeixiaoyuan_uranus_bigtts"
     mascot: str = ""            # 本机角色图路径，**不进仓库**
     ffmpeg: str = "ffmpeg"
+    min_publish_gap_min: int = 30   # 两次上传的最小间隔（分钟）
+    daily_publish_cap: int = 1     # 每天最多发几条
     extra: dict = field(default_factory=dict)
 
 
@@ -54,6 +56,8 @@ tts_provider = "volc"     # volc | none
 tts_voice    = "zh_female_tianmeixiaoyuan_uranus_bigtts"
 mascot       = ""         # 角色图放本机，别提交
 ffmpeg       = "ffmpeg"   # 找不到就写绝对路径
+min_publish_gap_min = 30   # 两次上传最小间隔，分钟
+daily_publish_cap   = 1   # 每天最多发几条
 """
 
 

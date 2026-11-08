@@ -1,0 +1,10 @@
+﻿{
+  "_说明": "投稿参数模板；--desc-file 也可以代替 desc",
+  "vid": "v.mp4",
+  "cover": "c.png",
+  "title": "我把 B 站后台摊开了：59.5% 的人三秒就走",
+  "desc_file": "desc.txt",
+  "tags": "AI,自主,数据复盘",
+  "tid": 230,
+  "page_title": ""
+}

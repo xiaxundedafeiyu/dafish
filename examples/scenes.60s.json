@@ -1,0 +1,91 @@
+{
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "scenes": [
+    {
+      "type": "terminal",
+      "dur": 5,
+      "title": "doctor",
+      "lines": ["$ dafish doctor", "", "{\"ready\": true}", "+凭据就位 · ffmpeg 就位 · 可以投稿"],
+      "caption": "先自检，再动手"
+    },
+    {
+      "type": "card",
+      "dur": 6,
+      "title": "它做什么？",
+      "options": ["渲视频：JSON 进，mp4 出", "配音：一句一行", "读数据：平均播放 ÷ 片长", "投稿：默认演练，不误发"],
+      "caption": "四个动作，一条命令一个"
+    },
+    {
+      "type": "terminal",
+      "dur": 7,
+      "title": "publish.log",
+      "lines": ["$ dafish publish --video v.mp4 --cover c.png --send", "", "上传中 ...", "!失败：NetworkException 状态码：406", "+按规则：现在什么都不做，等够 30 分钟", "+已自动落锁到 20:04"],
+      "caption": "风控是墙，不是坑"
+    },
+    {
+      "type": "lines",
+      "dur": 6,
+      "kicker": "为什么要有闸门",
+      "lines": ["每次重试都会重置冷却计时", "所以工具拒绝帮你「再试一次」"],
+      "caption": "它拦你，是在保你的号"
+    },
+    {
+      "type": "card",
+      "dur": 6,
+      "title": "三道闸",
+      "options": ["① 601 后锁 30 分钟，绕不过", "② 两次上传至少隔 30 分钟", "③ 每天最多 1 条，--force 才例外"],
+      "caption": "全部写在 state.json 里，可查"
+    },
+    {
+      "type": "terminal",
+      "dur": 6,
+      "title": "stat",
+      "lines": ["$ dafish stat --bvid BV1f24b6mEWJ", "", "\"view\": 4453, \"duration\": 51", "\"avg_duration\": 8  →  平均只看了 15.7%"],
+      "caption": "播放量是分发问题，看多久是内容问题"
+    },
+    {
+      "type": "card",
+      "dur": 6,
+      "title": "装它要什么",
+      "options": ["Python ≥ 3.9", "ffmpeg（渲染用）", "中文字体（不然方块）", "B 站 Cookie（自己放）"],
+      "caption": "没有一样是我能替你搞定的"
+    },
+    {
+      "type": "lines",
+      "dur": 5,
+      "kicker": "装",
+      "lines": ["pip install git+https://github.com/xiaxundedafeiyu/dafish", "dafish doctor  →  ready: true"],
+      "caption": "然后你就有同一个工具了"
+    },
+    {
+      "type": "card",
+      "dur": 6,
+      "title": "它不做什么",
+      "options": ["不代登录、不代扫码", "不保证不被风控", "不带素材（字体/配乐/角色）", "不替你决定发什么"],
+      "caption": "先说不能，再说能"
+    },
+    {
+      "type": "terminal",
+      "dur": 5,
+      "title": "reply",
+      "lines": ["$ dafish reply --oid 117563187073046 --root 323075986592", "!EREPLIED：这个楼层已经回过了", "+同一 root 只回一条，不再追加"],
+      "caption": "幂等也是保护：不让人重听一遍"
+    },
+    {
+      "type": "lines",
+      "dur": 5,
+      "kicker": "仓库",
+      "lines": ["github.com/xiaxundedafeiyu/dafish", "MIT · 中文文档 · 有 CHANGELOG"],
+      "caption": "代码在这里，随便看"
+    },
+    {
+      "type": "card",
+      "dur": 6,
+      "title": "拿去用吧",
+      "options": ["先 doctor，再 dry-run", "601 了就停手", "发完 24 小时回来看 stat"],
+      "caption": "别学我第一次发那样，连试四次"
+    }
+  ]
+}

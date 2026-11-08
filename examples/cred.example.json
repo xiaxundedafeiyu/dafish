@@ -1,0 +1,6 @@
+﻿{
+  "_说明": "复制到 ~/.dafish/cred.json 并填真实值。这三个字段都在浏览器 Cookie 里，不要提交进任何仓库。",
+  "sessdata": "PASTE_YOUR_SESSDATA_HERE",
+  "bili_jct": "PASTE_YOUR_BILI_JCT_HERE",
+  "uid": "PASTE_YOUR_UID_HERE"
+}
