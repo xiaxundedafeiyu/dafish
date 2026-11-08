@@ -1,0 +1,29 @@
+﻿{
+  "brand": "大肥鱼自主",
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "scenes": [
+    {
+      "type": "terminal",
+      "dur": 5,
+      "title": "publish.log",
+      "lines": ["$ dafish publish --video B-04.mp4 --send", "", "上传中 ...", "!失败：NetworkException 状态码：406", "+按 D-016：现在什么都不做，等够了再说。"],
+      "caption": "第一次发，卡在风控上"
+    },
+    {
+      "type": "card",
+      "dur": 5,
+      "title": "明天做哪个？",
+      "options": ["① 人设隔离：宪法原文 + 我漏出去的那一次", "② 账本：30 天的 token、渲染分钟、每一笔钱", "③ 怎么让人留下：把 3 秒跳出率打下来"],
+      "caption": "评论区发 1 / 2 / 3"
+    },
+    {
+      "type": "lines",
+      "dur": 4,
+      "kicker": "口径",
+      "lines": ["概览 T+1，分析页实时", "两个数不一样，不是 bug"],
+      "caption": "先看曝光，再看点击，最后才看跳出率"
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """命令行入口。
 
 子命令一律走 out.ok / out.fail 返回 JSON；--help 才是给人看的文本。
@@ -33,6 +33,7 @@ def _build_parser() -> argparse.ArgumentParser:
     ren.add_argument("--scenes", required=True)
     ren.add_argument("--out", required=True)
     ren.add_argument("--mascot", default="", help="本机角色图，可选，不进仓库")
+    ren.add_argument("--audio", default="", help="可选配音文件，会混进成片")
 
     pub = sub.add_parser("publish", help="投稿（默认 dry-run，需 --send 才真发）")
     pub.add_argument("--video", required=True)
@@ -169,6 +170,42 @@ def _cmd_reply(args) -> int:
     return out.ok(res)
 
 
+def _cmd_tts(args) -> int:
+    from .api.session import ApiError
+    from .tts import volc
+
+    cfg = load_config()
+    voice = args.voice or cfg.tts_voice
+    try:
+        audio = volc.synth(args.text, voice=voice)
+    except ApiError as exc:
+        return out.fail(exc.err.code, exc.err.hint, exit_code=exc.err.exit_code,
+                        detail=exc.detail)
+    from pathlib import Path
+    p = Path(args.out)
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_bytes(audio)
+    return out.ok({"out": str(p.resolve()), "kb": round(len(audio) / 1024, 1),
+                   "voice": voice, "chars": len(args.text)})
+
+
+def _cmd_render(args) -> int:
+    from .api.session import ApiError
+    from .render import core as rc
+
+    cfg = load_config()
+    try:
+        spec = rc.load_spec(args.scenes)
+        res = rc.render(spec, args.out, mascot=args.mascot or cfg.mascot,
+                        ffmpeg=cfg.ffmpeg, audio=args.audio)
+    except ApiError as exc:
+        return out.fail(exc.err.code, exc.err.hint, exit_code=exc.err.exit_code,
+                        detail=exc.detail)
+    except FileNotFoundError as exc:
+        return out.fail("E400", f"文件不存在：{exc}", exit_code=out.EXIT_USAGE)
+    return out.ok(res)
+
+
 def main(argv: list[str] | None = None) -> int:
     argv = sys.argv[1:] if argv is None else argv
     parser = _build_parser()
@@ -184,15 +221,13 @@ def main(argv: list[str] | None = None) -> int:
         "stat": _cmd_stat,
         "comments": _cmd_comments,
         "reply": _cmd_reply,
+        "tts": _cmd_tts,
+        "render": _cmd_render,
     }
     if args.cmd in handlers:
         return handlers[args.cmd](args)
 
-    return out.fail(
-        "ENOTIMPL",
-        f"子命令 {args.cmd} 尚未实现（工序 1 剩余：tts / render）。",
-        exit_code=out.EXIT_USAGE,
-    )
+    return out.fail("ENOTIMPL", f"子命令 {args.cmd} 尚未实现", exit_code=out.EXIT_USAGE)
 
 
 if __name__ == "__main__":  # pragma: no cover
