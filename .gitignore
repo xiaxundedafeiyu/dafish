@@ -9,3 +9,11 @@ build/
 *.png
 !docs/*.png
 !examples/*.png
+*.jpg
+*.jpeg
+*.mp3
+*.m4a
+state.json
+cred.json
+audit.log
+.env

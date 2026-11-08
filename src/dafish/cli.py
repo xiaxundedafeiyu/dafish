@@ -1,4 +1,4 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 """命令行入口。
 
 子命令一律走 out.ok / out.fail 返回 JSON；--help 才是给人看的文本。
@@ -61,6 +61,7 @@ def _build_parser() -> argparse.ArgumentParser:
     ls = sub.add_parser("comments", help="读一页评论（只读）")
     ls.add_argument("--oid", required=True)
     ls.add_argument("--page", type=int, default=1)
+    ls.add_argument("--size", type=int, default=20, help="每页条数；接口上限 20，超出自动夹住")
 
     return p
 
@@ -157,7 +158,7 @@ def _cmd_comments(args) -> int:
 
     cred = load_cred()
     try:
-        d = api_reply.list_replies(int(args.oid), cred, page=args.page)
+        d = api_reply.list_replies(int(args.oid), cred, page=args.page, size=getattr(args, "size", 20))
     except ApiError as exc:
         return out.fail(exc.err.code, exc.err.hint, exit_code=exc.err.exit_code,
                         detail=exc.detail)
@@ -177,7 +178,9 @@ def _cmd_comments(args) -> int:
                 for s in ((r.get("replies") or [])[:20])
             ],
         })
-    return out.ok({"page": page.get("count"), "total": page.get("size"),
+    return out.ok({"page": int(getattr(args, "page", 1)),
+                   "count": page.get("count"),
+                   "page_size": page.get("size"),
                    "replies": replies})
 
 

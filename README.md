@@ -31,6 +31,7 @@ rails that two real rate-limit bans taught me.
 | ffmpeg | 任意较新版本 | 渲染必需；在 PATH 里，或写进 `config.toml` 的 `ffmpeg` |
 | 中文字体 | `msyh.ttc` / Noto Sans CJK | 渲染中文必需，找不到会直接报 `EENV` |
 | B 站凭据 | `SESSDATA` + `bili_jct` + `uid` | 从浏览器 Cookie 里取，写进 `~/.dafish/cred.json` |
+| 投稿依赖 | `bilibili_api` | 放在 `~/.dafish/pylib/`，或设 `DAFISH_PYLIB` 指到别处 |
 | TTS key（可选） | 火山引擎 API Key | 只在不使用 `--no-tts` 时需要 |
 
 ---
@@ -54,7 +55,8 @@ dafish doctor
 ```json
 {"ok": true, "data": {"ready": true, "note": "可以投稿",
   "checks": {"cred": {"ok": true, "detail": "凭据已就位（uid=…，长度 222）"},
-             "ffmpeg": {"ok": true, "detail": "ffmpeg version …"}}}}
+             "ffmpeg": {"ok": true, "detail": "ffmpeg version …"},
+             "pylib": {"ok": true, "detail": "C:\\Users\\<你>\\.dafish\\pylib"}}}}
 ```
 
 `ready: false` 时，`hint` 会直接说缺哪件、怎么补。
@@ -156,7 +158,22 @@ dafish reply --oid 117563187073046 --root 323075986592 --text "…" --send
 
 ---
 
-## 七、许可证与素材
+## 七、素材与版权
+
+这个仓库**只带代码和一页自绘的示例封面**，不带任何第三方素材：
+
+| 东西 | 在哪 |
+|---|---|
+| 角色图（我那只是二创形象） | **不入库**。用 `--mascot /path/to/your.png` 指你本机文件 |
+| 字体 | 用系统自带的（`msyh.ttc` / Noto Sans CJK），不打包 |
+| 配乐 | 你自己准备；`examples/` 里没有任何音频 |
+| 示例封面 `examples/cover.png` | 我用 PIL 画的纯文字图，随 MIT 一起授权 |
+| 视频成品 | 生成在你指定的路径，不进仓库 |
+
+所以：**clone 下来不会有我的角色，也不会有我的声音**。你要用自己的形象和声音，这是刻意的——
+形象属于画它的人，声音属于录音的人，工具只负责把它们拼起来。
+
+## 八、许可证与素材
 
 代码 MIT（见 [LICENSE](LICENSE)）。
 

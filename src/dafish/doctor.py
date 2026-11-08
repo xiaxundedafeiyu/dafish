@@ -5,6 +5,7 @@
 """
 from __future__ import annotations
 
+import os
 import shutil
 import subprocess
 
@@ -41,6 +42,18 @@ def _check_config() -> tuple[bool, str]:
     return True, str(p)
 
 
+def _check_pylib() -> tuple[bool, str]:
+    """投稿依赖 bilibili_api；只读检查它到底在不在。"""
+    from .api.session import _PYLIB  # noqa: PLC0415
+
+    if not os.path.isdir(_PYLIB):
+        return False, f"依赖目录不存在：{_PYLIB}（放 bilibili_api 进去，或设 DAFISH_PYLIB）"
+    hit = os.path.isdir(os.path.join(_PYLIB, "bilibili_api"))
+    if not hit:
+        return False, f"{_PYLIB} 里没有 bilibili_api"
+    return True, _PYLIB
+
+
 def run() -> int:
     cfg = load_config()
     cred = load_cred()
@@ -49,6 +62,7 @@ def run() -> int:
     checks["config"] = _check_config()
     checks["cred"] = _check_cred(cred)
     checks["ffmpeg"] = _check_ffmpeg(cfg)
+    checks["pylib"] = _check_pylib()
     checks["tts"] = (
         True,
         f"provider={cfg.tts_provider}（真正调用时才校验 key）",

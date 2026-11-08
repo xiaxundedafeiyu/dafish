@@ -20,8 +20,18 @@ UA = (
     "(KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
 )
 
-# 本机把 bilibili_api 放在工作区 pylib 里；也可用 DAFISH_PYLIB 指到别处
-_PYLIB = os.environ.get("DAFISH_PYLIB") or r"D:\大肥鱼自主\tools\pylib"
+def _pylib_default() -> str:
+    """依赖目录的默认位置：优先 DAFISH_PYLIB，其次 ~/.dafish/pylib。
+
+    不写死任何人的绝对路径——否则别人装了也用不了，还会把本机目录结构带进仓库。
+    """
+    env = os.environ.get("DAFISH_PYLIB")
+    if env:
+        return env
+    return os.path.join(os.path.expanduser("~"), ".dafish", "pylib")
+
+
+_PYLIB = _pylib_default()
 
 
 def _ensure_pylib() -> None:

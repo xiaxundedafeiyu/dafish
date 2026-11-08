@@ -18,8 +18,10 @@ from .session import UA, ApiError, _classify, curl_lib
 
 def list_replies(oid: int, cred: Cred, page: int = 1, size: int = 20) -> dict:
     requests = curl_lib()
+    # ps 超过 20 会返回 code -400「ps out of bounds」，这里直接夹住，不把锅甩给调用方
+    ps = max(1, min(int(size), 20))
     params = {
-        "type": 1, "oid": oid, "pn": page, "ps": size, "sort": 0,
+        "type": 1, "oid": oid, "pn": page, "ps": ps, "sort": 0,
         "nohot": 1,  # 缺这个就是 -400
     }
     headers = {"User-Agent": UA, "Accept": "application/json",
